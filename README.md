@@ -195,4 +195,5 @@ All endpoints require authentication.
 ## Demo
 - visit - https://bp-tracker-ckbje5gpgjfphxcu.canadacentral-01.azurewebsites.net/
 - use email = test@yahoo.com password = Password@123
+- kindly wait a few seconds for the server spin up !
 
