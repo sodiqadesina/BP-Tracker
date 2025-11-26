@@ -1,4 +1,3 @@
-
 using BPA1.Data;
 using BPA1.Models;
 using BPA1.Services;
@@ -26,7 +25,14 @@ builder.Services.AddFluentValidationAutoValidation().AddFluentValidationClientsi
 // DbContext with SQL Server (dev)
 var connectstr = builder.Configuration.GetConnectionString("DefaultConnection");
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
-    options.UseSqlServer(connectstr));
+    options.UseSqlServer(connectstr, sqlOptions =>
+    {
+        // Retry on transient SQL errors (useful for Azure SQL/serverless waking up)
+        sqlOptions.EnableRetryOnFailure(
+            maxRetryCount: 5,
+            maxRetryDelay: TimeSpan.FromSeconds(10),
+            errorNumbersToAdd: null);
+    }));
 
 // Identity
 builder.Services.AddDefaultIdentity<ApplicationUser>(options =>
@@ -123,7 +129,7 @@ using (var scope = app.Services.CreateScope())
                         (119, 79), (129, 70), (133, 75), (145, 88), (178, 119)
                     };
                     var posIds = db.Positions.Select(p => p.Id).OrderBy(x => x).ToArray();
-                    if (posIds.Length == 0) { posIds = new int[]{1,2,3}; }
+                    if (posIds.Length == 0) { posIds = new int[] { 1, 2, 3 }; }
 
                     var list = new List<BpMeasurement>();
                     for (int i = 0; i < seeds.Length; i++)
@@ -152,6 +158,5 @@ using (var scope = app.Services.CreateScope())
     }
 }
 // --- End seed ---
-
 
 app.Run();
