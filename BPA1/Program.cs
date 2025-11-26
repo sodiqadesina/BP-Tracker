@@ -24,7 +24,7 @@ builder.Services.AddRazorPages();
 builder.Services.AddFluentValidationAutoValidation().AddFluentValidationClientsideAdapters();
 
 // DbContext with SQL Server (dev)
-var connectstr = builder.Configuration.GetConnectionString("BpMeasurementConnectionString");
+var connectstr = builder.Configuration.GetConnectionString("DefaultConnection");
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(connectstr));
 
