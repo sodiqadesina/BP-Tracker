@@ -1,0 +1,63 @@
+html {
+  font-size: 14px;
+}
+
+@media (min-width: 768px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+body {
+  margin-bottom: 60px;
+}
+
+
+.darkgreen {
+    
+    color: darkgreen;
+}
+
+.blue {
+   
+    color: blue;
+}
+
+.orange {
+    color: orange;
+}
+
+.orangered {
+    color: orangered;
+}
+
+.darkred {
+
+    color: darkred;
+}
+
+.drow {
+    width: 40%;
+    display: flex;
+    justify-content:space-between
+    }
+
+.drow1 {
+ 
+    display: flex;
+    justify-content: space-evenly
+}
+
+.form-group{
+    margin-top: 20px;
+}
+
+.form{
+    margin-bottom: 10px
+}
+

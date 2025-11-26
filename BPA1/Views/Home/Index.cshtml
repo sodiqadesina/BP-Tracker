@@ -1,0 +1,67 @@
+@{
+    ViewData["Title"] = "Blood Pressure Tracker";
+}
+
+<div class="container mt-5">
+  <div class="text-center mb-4">
+    <h1 class="display-5 fw-bold">BP Tracker</h1>
+    <p class="lead text-muted">A production-style ASP.NET Core app with Identity, EF Core, analytics dashboard, REST API, and CI/CD.</p>
+  </div>
+
+  <div class="row g-4">
+    <div class="col-md-4">
+      <div class="card h-100 shadow-sm">
+        <div class="card-body">
+          <h5 class="card-title">Add a measurement</h5>
+          <p class="card-text">Record systolic/diastolic values, pulse, notes, and position.</p>
+          <a class="btn btn-primary" asp-controller="BPMeasurements" asp-action="Create">Add new BP measurement</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-4">
+      <div class="card h-100 shadow-sm">
+        <div class="card-body">
+          <h5 class="card-title">Your history</h5>
+          <p class="card-text">Search, sort, and paginate through your readings.</p>
+          <a class="btn btn-outline-primary" asp-controller="BPMeasurements" asp-action="Index">My BP measurements</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-4">
+      <div class="card h-100 shadow-sm">
+        <div class="card-body">
+          <h5 class="card-title">Dashboard</h5>
+          <p class="card-text">See trends over time and category breakdowns.</p>
+          <a class="btn btn-outline-secondary" asp-controller="BPMeasurements" asp-action="Dashboard">Open dashboard</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <hr class="my-5" />
+
+  <div class="row">
+    <div class="col-md-6">
+      <h5>What’s under the hood?</h5>
+      <ul>
+        <li>ASP.NET Core MVC + Identity (per-user data)</li>
+        <li>Entity Framework Core (SQL Server) with async operations</li>
+        <li>Service layer, ViewModels, and clean separation of concerns</li>
+        <li>Chart.js dashboard (trend + categories)</li>
+        <li>REST API with Swagger/OpenAPI (Development)</li>
+        <li>Health checks + Serilog structured logging</li>
+      </ul>
+    </div>
+    <div class="col-md-6">
+      <h5>How to use</h5>
+      <ol>
+        <li><a asp-area="Identity" asp-page="/Account/Register">Register</a> or <a asp-area="Identity" asp-page="/Account/Login">log in</a>.</li>
+        <li>Add a few measurements.</li>
+        <li>Open the dashboard to visualize your data.</li>
+      </ol>
+      <p class="text-muted">API docs available at <code>/swagger</code> in Development.</p>
+    </div>
+  </div>
+</div>

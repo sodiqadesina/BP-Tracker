@@ -1,0 +1,43 @@
+
+@model BPA1.ViewModels.PagedResult<BPA1.ViewModels.MeasurementListItemVm>
+@{
+    ViewData["Title"] = "My Measurements";
+}
+<h2>My Measurements</h2>
+@{
+    Func<string,string> CategoryClass = c => c switch
+    {
+        "Normal" => "success",
+        "Elevated" => "info",
+        "Stage 1" => "warning",
+        "Stage 2" => "danger",
+        "Hypertensive Crisis" => "dark",
+        _ => "secondary"
+    };
+}
+<p><a class="btn btn-primary" href="/BPMeasurements/Create">Add Measurement</a> <a class="btn btn-outline-secondary" href="/BPMeasurements/Dashboard">Dashboard</a></p>
+<table class="table table-striped">
+  <thead>
+    <tr><th>Date</th><th>Systolic</th><th>Diastolic</th><th>Pulse</th><th>Position</th><th>Category</th><th></th></tr>
+  </thead>
+  <tbody>
+  @foreach (var m in Model.Items)
+  {
+    <tr>
+      <td>@m.DateOfMeasurement.ToShortDateString()</td>
+      <td>@m.Systolic</td>
+      <td>@m.Diastolic</td>
+      <td>@(m.Pulse?.ToString() ?? "-")</td>
+      <td>@(m.Position ?? "-")</td>
+      <td><span class="badge bg-@CategoryClass(m.Category)">@m.Category</span></td>
+      <td>
+        <a class="btn btn-sm btn-outline-primary" href="/BPMeasurements/Edit/@m.Id">Edit</a>
+        <form method="post" action="/BPMeasurements/Delete/@m.Id" style="display:inline">
+          @Html.AntiForgeryToken()
+          <button class="btn btn-sm btn-outline-danger" type="submit">Delete</button>
+        </form>
+      </td>
+    </tr>
+  }
+  </tbody>
+</table>

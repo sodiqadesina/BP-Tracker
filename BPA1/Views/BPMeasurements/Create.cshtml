@@ -1,0 +1,38 @@
+
+@model BPA1.ViewModels.MeasurementCreateVm
+@{
+    ViewData["Title"] = "Add Measurement";
+}
+<h2>Add Measurement</h2>
+<form method="post">
+  <div class="mb-3">
+    <label>Systolic</label>
+    <input asp-for="Systolic" class="form-control" type="number" />
+    <span asp-validation-for="Systolic" class="text-danger"></span>
+  </div>
+  <div class="mb-3">
+    <label>Diastolic</label>
+    <input asp-for="Diastolic" class="form-control" type="number" />
+    <span asp-validation-for="Diastolic" class="text-danger"></span>
+  </div>
+  <div class="mb-3">
+    <label>Date</label>
+    <input asp-for="DateOfMeasurement" class="form-control" type="date" />
+    <span asp-validation-for="DateOfMeasurement" class="text-danger"></span>
+  </div>
+  <div class="mb-3">
+    <label>Pulse</label>
+    <input asp-for="Pulse" class="form-control" type="number" />
+  </div>
+  <div class="mb-3">
+    <label>Notes</label>
+    <textarea asp-for="Notes" class="form-control"></textarea>
+  </div>
+  <div class="mb-3">
+    <label>Position</label>
+    <select asp-for="PositionId" class="form-select" asp-items="ViewBag.PositionId">
+      <option value="">-- Select --</option>
+    </select>
+  </div>
+  <button class="btn btn-primary" type="submit">Save</button>
+</form>

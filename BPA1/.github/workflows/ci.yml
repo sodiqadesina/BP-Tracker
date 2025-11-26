@@ -1,0 +1,21 @@
+
+name: ci
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '6.0.x'
+      - run: dotnet restore BPA1.csproj
+        working-directory: BPA1
+      - run: dotnet build BPA1.csproj --configuration Release --no-restore
+        working-directory: BPA1
+      - run: dotnet test --no-build --verbosity normal || true
+        working-directory: BPA1

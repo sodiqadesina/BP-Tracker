@@ -1,0 +1,54 @@
+
+@{
+    ViewData["Title"] = "Dashboard";
+}
+<h2>Dashboard</h2>
+<canvas id="trend" width="600" height="300"></canvas>
+<br />
+<canvas id="cats" width="600" height="300"></canvas>
+
+
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  Promise.all([loadTrend(), loadCats()]).catch(err => console.error(err));
+});
+
+async function loadTrend(){
+  try {
+    const res = await fetch('/bp/api/trend', { credentials: 'same-origin' });
+    if (!res.ok) throw new Error('Trend fetch failed: ' + res.status);
+    const data = await res.json();
+    const labels = data.map(d => new Date(d.date).toLocaleDateString());
+    const sys = data.map(d => d.systolic);
+    const dia = data.map(d => d.diastolic);
+    const el = document.getElementById('trend');
+    if (!el) return;
+    new Chart(el, {
+      type: 'line',
+      data: { labels, datasets: [{ label: 'Systolic', data: sys }, { label: 'Diastolic', data: dia }]}
+    });
+  } catch (e) {
+    console.error('Trend error', e);
+  }
+}
+
+async function loadCats(){
+  try {
+    const res = await fetch('/bp/api/categories', { credentials: 'same-origin' });
+    if (!res.ok) throw new Error('Categories fetch failed: ' + res.status);
+    const data = await res.json();
+    const labels = Object.keys(data);
+    const values = Object.values(data);
+    const el = document.getElementById('cats');
+    if (!el) return;
+    new Chart(el, {
+      type: 'pie',
+      data: { labels, datasets: [{ label: 'Categories', data: values }]},
+      options: { plugins: { legend: { position: 'bottom' } } }
+    });
+  } catch (e) {
+    console.error('Categories error', e);
+  }
+}
+</script>
